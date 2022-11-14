@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace test4
 {
@@ -29,34 +30,47 @@ namespace test4
 
         }
     }
-    //public class User
-    //{
-    //    public int Id { get; set; }
-    //    public string? Name { get; set; }
-    //    public int Age { get; set; }
-    //}
-    //public enum Category
-    //{
-    //    Mobiles,
-    //    TV,
-    //    Laptops
-    //}
-    //public enum Address
-    //{
-    //    Adres1,
-    //    Adres2,
-    //    Adres3
-    //}
+    /// <summary>
+    /// поставщик
+    /// </summary>
+    public class Provider
+    {
+        public int Id { get; set; }
+        [Required]
+        public int Number { get; set; }
+        [Required(ErrorMessage = "Не указано имя пользователя")]
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// покупатель
+    /// </summary>
+    public class Buyer
+    {
+        public int Id { get; set; }
+        [Required]
+        public int Number { get; set; }
+        [Required(ErrorMessage = "Не указано имя покупателя")]
+        public string Name { get; set; }
+    }
+
     public class Address
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указан адрес")] //обязательно для ввода,иначе выкинет исключение
         public string Name { get; set; }
         //связи
+        public List<Location> Locations { get; set; } = new();
+        
 
     }
+    /// <summary>
+    /// Категория товара
+    /// </summary>
     public class Category
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указано название")] //обязательно для ввода,иначе выкинет исключение
         public string Name { get; set; }
         //связи
         public List<Product> Products { get; set; } = new();
@@ -67,8 +81,12 @@ namespace test4
     public class Product
     {
         public int Id { get; set; }
+        [Required]
         public int Number { get; set; }
+        [Required(ErrorMessage = "Не указано имя товара")] 
         public string? Name { get; set; }
+        public decimal? SalePrice { get; set; }// цена продажи
+        public decimal? PurchasePrice { get; set; }//закупочная
         //связи:
         //категория
         public int CategoryId { get; set; }
@@ -83,13 +101,14 @@ namespace test4
     public class Location {
         [Key]
         public int WarehouseNumber { get; set; }//номер склада
-        public Address Address { get; set; }
         public int RackNumber { get; set; }//стеллаж
         public int ShelfNumber { get; set; }//полка
         //связи:
-
         //товары
         public List<Product> Products { get; set; } = new();//товары склада
+        //адрес
+        public int AddressId { get; set; }
+        public Address? Address { get; set; }
     }
     //public interface Person
     //{
@@ -101,11 +120,16 @@ namespace test4
     public class User 
     {
         public int Id { get; set; }
+        [Required]
         public int Number { get; set; }
+        [Required(ErrorMessage = "Не указано имя")]
         public string FirstName { get; set; }
-        public string? SecondName { get; set; }
-        public string? LastName { get; set; }
+        public string? SecondName { get; set; } = "";
+        public string? LastName { get; set; } = "";
+        [Range(18, 100, ErrorMessage = "Недопустимый возраст")]
         public int Age { get; set; }
+        //[Phone]
+        public string? Phone { get; set; } = "";
         
     }
     public class Employee : User
@@ -127,6 +151,7 @@ namespace test4
     public class Department
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указано имя отдела")]
         public string Name { get; set; }
         //связи
         public List<Employee> Employees { get; set; } = new();
@@ -137,6 +162,7 @@ namespace test4
     public class Post
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Не указана должность")]
         public string Name { get; set; }
         //связь
         public List<Employee> Employees { get; set; } = new();
@@ -165,3 +191,29 @@ namespace test4
        
     }
 }
+
+
+
+
+
+
+
+
+//public class User
+ //{
+ //    public int Id { get; set; }
+ //    public string? Name { get; set; }
+ //    public int Age { get; set; }
+ //}
+ //public enum Category
+ //{
+ //    Mobiles,
+ //    TV,
+ //    Laptops
+ //}
+ //public enum Address
+ //{
+ //    Adres1,
+ //    Adres2,
+ //    Adres3
+ //}
