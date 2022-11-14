@@ -7,6 +7,7 @@ namespace test4
     {
         public static void Main(string[] args)
         {
+            system("chcp 1251");
             //using (ApplicationContext db = new ApplicationContext())
             //{
             //    User user1 = new User { Name = "Tom", Age = 33 };
