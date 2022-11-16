@@ -4,12 +4,16 @@ namespace WarehouseInformationSystem
 {
     public class Program
     {
+
         public static void Main(string[] args)
         {
-
-
+            ConnectToTheDatabase.UseMySql();
+            
         }
+        
     }
+
+    //в дальнейшем допилю
     /// <summary>
     /// поставщик
     /// </summary>

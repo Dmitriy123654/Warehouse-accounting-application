@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WarehouseInformationSystem;
+using WarehouseInformationSystem.Data;
 
 #nullable disable
 
 namespace WarehouseInformationSystem.Migrations
 {
-    [DbContext(typeof(ApplicationContext))]
-    [Migration("20221115003701_First")]
-    partial class First
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20221115192740_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace WarehouseInformationSystem.Migrations
                 .HasAnnotation("ProductVersion", "6.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Address", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -36,7 +36,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.CategoryOfProduct", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.CategoryOfProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,7 +51,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("CategoryOfProducts");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Department", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,7 +66,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Location", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Location", b =>
                 {
                     b.Property<int>("WarehouseNumber")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Post", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,7 +103,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Product", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,7 +134,7 @@ namespace WarehouseInformationSystem.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.User", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -167,9 +167,9 @@ namespace WarehouseInformationSystem.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Employee", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Employee", b =>
                 {
-                    b.HasBaseType("WarehouseInformationSystem.model.User");
+                    b.HasBaseType("WarehouseInformationSystem.Model.User");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
@@ -187,9 +187,9 @@ namespace WarehouseInformationSystem.Migrations
                     b.HasDiscriminator().HasValue("Employee");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Location", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Location", b =>
                 {
-                    b.HasOne("WarehouseInformationSystem.model.Address", "Address")
+                    b.HasOne("WarehouseInformationSystem.Model.Address", "Address")
                         .WithMany("Locations")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -198,15 +198,15 @@ namespace WarehouseInformationSystem.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Product", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Product", b =>
                 {
-                    b.HasOne("WarehouseInformationSystem.model.CategoryOfProduct", "CategoryOfProduct")
+                    b.HasOne("WarehouseInformationSystem.Model.CategoryOfProduct", "CategoryOfProduct")
                         .WithMany("Products")
                         .HasForeignKey("CategoryOfProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WarehouseInformationSystem.model.Location", null)
+                    b.HasOne("WarehouseInformationSystem.Model.Location", null)
                         .WithMany("Products")
                         .HasForeignKey("LocationWarehouseNumber")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -215,15 +215,15 @@ namespace WarehouseInformationSystem.Migrations
                     b.Navigation("CategoryOfProduct");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Employee", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Employee", b =>
                 {
-                    b.HasOne("WarehouseInformationSystem.model.Department", "Department")
+                    b.HasOne("WarehouseInformationSystem.Model.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WarehouseInformationSystem.model.Post", "Post")
+                    b.HasOne("WarehouseInformationSystem.Model.Post", "Post")
                         .WithMany("Employees")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -234,27 +234,27 @@ namespace WarehouseInformationSystem.Migrations
                     b.Navigation("Post");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Address", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Address", b =>
                 {
                     b.Navigation("Locations");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.CategoryOfProduct", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.CategoryOfProduct", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Department", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Department", b =>
                 {
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Location", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Location", b =>
                 {
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("WarehouseInformationSystem.model.Post", b =>
+            modelBuilder.Entity("WarehouseInformationSystem.Model.Post", b =>
                 {
                     b.Navigation("Employees");
                 });

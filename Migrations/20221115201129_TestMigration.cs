@@ -4,27 +4,22 @@
 
 namespace WarehouseInformationSystem.Migrations
 {
-    public partial class second : Migration
+    public partial class TestMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "TEXT",
+                name: "ShortName",
                 table: "Addresses",
                 type: "longtext",
                 nullable: false)
                 .Annotation("MySql:CharSet", "utf8mb4");
-            //migrationBuilder.Sql(
-            //@"
-            //    UPDATE Addresses
-            //    SET TEXT = TEXT;
-            //");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "TEXT",
+                name: "ShortName",
                 table: "Addresses");
         }
     }
