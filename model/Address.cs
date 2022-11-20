@@ -15,7 +15,7 @@
        
         public override string ToString()
         {
-            return $"Address: {Name} \n";
+            return $"Адрес: {Name} \n";
         }
     }
 }

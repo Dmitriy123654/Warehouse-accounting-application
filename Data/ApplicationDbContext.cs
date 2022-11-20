@@ -5,9 +5,7 @@
        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
-        { 
-            // Database.EnsureDeleted();
-            //Database.EnsureCreated();
+        {
         }
         public DbSet<Address> Addresses { get; set; } = null!;
         public DbSet<CategoryOfProduct> CategoryOfProducts { get; set; } = null!;

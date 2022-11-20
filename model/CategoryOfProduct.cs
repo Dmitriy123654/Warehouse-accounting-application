@@ -15,7 +15,7 @@
        
         public override string ToString()
         {
-            return $"CategoryOfProduct: {Name} \n";
+            return $"Категория товара: {Name} \n";
         }
     }
 }

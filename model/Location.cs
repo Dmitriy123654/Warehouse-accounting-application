@@ -9,22 +9,13 @@
         [Required(ErrorMessage = "Не указан номер полки")]
         public int ShelfNumber { get; set; }//полка
         //???
-        public Location(int warehouseNumber, int rackNumber, int shelfNumber)
+        public Location(int warehouseNumber, int rackNumber, int shelfNumber,Address address)
         {
             WarehouseNumber = warehouseNumber;
             RackNumber = rackNumber;
             ShelfNumber = shelfNumber;
+            Address = address;
         }
-        //public Location(int warehouseNumber, int rackNumber, int shelfNumber,Address? address) :this(warehouseNumber,rackNumber,shelfNumber)
-        //{
-        //    Address = address;
-        //    AddressId = address.Id;
-        //}
-        //public Location(int warehouseNumber, int rackNumber, int shelfNumber, int addressId) : this(warehouseNumber, rackNumber, shelfNumber)
-        //{
-        //    AddressId = addressId;
-        //}
-
         //связи:
         //товары
         public List<Product> Products { get; set; } = new();//товары склада
@@ -33,9 +24,19 @@
         public Address? Address { get; set; }
         public override string ToString()
         {
-            return $"WarehouseNumber: {WarehouseNumber}\n" +
-               $"RackNumber: {RackNumber}\n" +
-               $"ShelfNumber: {ShelfNumber}\n";
+            return $"Номер склада: {WarehouseNumber}\n" +
+               $"Номер стеллажа: {RackNumber}\n" +
+               $"Номер полки: {ShelfNumber}\n" +
+               $"{Address?.Name}";
         }
     }
 }
+//public Location(int warehouseNumber, int rackNumber, int shelfNumber,Address? address) :this(warehouseNumber,rackNumber,shelfNumber)
+//{
+//    Address = address;
+//    AddressId = address.Id;
+//}
+//public Location(int warehouseNumber, int rackNumber, int shelfNumber, int addressId) : this(warehouseNumber, rackNumber, shelfNumber)
+//{
+//    AddressId = addressId;
+//}

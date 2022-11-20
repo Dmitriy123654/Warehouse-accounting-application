@@ -17,7 +17,7 @@
         public List<Employee> Employees { get; set; } = new();
         public override string ToString()
         {
-            return $"Post: {Name}\n";
+            return $"Должность: {Name}\n";
         }
     }
 }
