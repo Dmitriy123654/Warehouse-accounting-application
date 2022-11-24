@@ -9,12 +9,11 @@
         [Required(ErrorMessage = "Не указан номер полки")]
         public int ShelfNumber { get; set; }//полка
         //???
-        public Location(int warehouseNumber, int rackNumber, int shelfNumber,Address address)
+        public Location(int rackNumber, int shelfNumber)
         {
-            WarehouseNumber = warehouseNumber;
             RackNumber = rackNumber;
             ShelfNumber = shelfNumber;
-            Address = address;
+
         }
         //связи:
         //товары

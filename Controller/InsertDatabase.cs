@@ -6,18 +6,19 @@
         public InsertDatabase(ApplicationDbContext? _db)
         {
             db = _db;
+            
         }
-        public void AddInformationInBd()
+        public async Task AddInformationInBdAsync()
         {
-            //var insertAddressDb = new InsertAddressDb(db);
-            //insertAddressDb.AddInformationInBd();
 
-            //var insertCategoryOfProductDb = new InsertCategoryOfProductDb(db);
-            //insertCategoryOfProductDb.AddInformationInBd();
+            //var insertUsersDb = new InsertUsersDb(db);
+            //await insertUsersDb.AddInformationInBdAsync();
 
-            var insertEmployeeDb = new InsertEmployeeDb(db);
-            insertEmployeeDb.AddInformationInBd();
-
+            //var insertEmployeeDb = new InsertEmployeeDb(db);
+            //await insertEmployeeDb.AddInformationInBdAsync();
+            
+            //var insertProductDb = new InsertProductDb(db);
+            //await insertProductDb.AddInformationInBdAsync();
 
         }
     }

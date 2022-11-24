@@ -15,14 +15,13 @@
         [Required(ErrorMessage = "Не указана цена")]
         public decimal SalePrice { get; set; }// цена продажи
         public decimal? PurchasePrice { get; set; }//закупочная
-        public Product(string name, string characteristic, decimal salePrice, decimal? purchasePrice, CategoryOfProduct categoryOfProduct, Location location)
+        public Product(string name, string characteristic, decimal salePrice, decimal? purchasePrice)
         {
             Name = name;
             Characteristic = characteristic;
             SalePrice = salePrice;
             PurchasePrice = purchasePrice;
-            CategoryOfProduct = categoryOfProduct;
-            Location = location;
+           
         }
 
         //связи:

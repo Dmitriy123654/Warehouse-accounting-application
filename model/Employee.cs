@@ -5,12 +5,12 @@ namespace WarehouseInformationSystem.Model
     {
         public decimal Salary { get; set; }
         //???добавить отпуск
-        public Employee(string name, int age, string secondName, string phone, decimal salary,Department department,Post post)
+        public Employee(string name, int age, string secondName, string phone, decimal salary)
             : base(name, age, secondName, phone)
         {
             Salary = salary;
-            Department = department;
-            Post = post;
+            //Department = department;
+            //Post = post;
         }
         //связи:
         //отдел 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WarehouseInformationSystem.Data;
 
@@ -10,9 +11,10 @@ using WarehouseInformationSystem.Data;
 namespace WarehouseInformationSystem.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221124174537_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,12 +130,10 @@ namespace WarehouseInformationSystem.Migrations
                         .HasColumnType("varchar(100)");
 
                     b.Property<decimal?>("PurchasePrice")
-                        .HasPrecision(20, 2)
-                        .HasColumnType("decimal(20,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.Property<decimal>("SalePrice")
-                        .HasPrecision(20, 2)
-                        .HasColumnType("decimal(20,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
@@ -187,8 +187,7 @@ namespace WarehouseInformationSystem.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Salary")
-                        .HasPrecision(20, 2)
-                        .HasColumnType("decimal(20,2)");
+                        .HasColumnType("decimal(65,30)");
 
                     b.HasIndex("DepartmentId");
 
