@@ -19,6 +19,7 @@ namespace WarehouseInformationSystem
             var app = builder.Build();
             var options = optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)).Options;
 
+            
             using (ApplicationDbContext db = new(options))
             {
                 //User tom = new ("test",123,"test");
@@ -27,48 +28,13 @@ namespace WarehouseInformationSystem
 
                 //var TESTinsertDb = new InsertDatabase(_appDbContext);
                 //await TESTinsertDb.AddInformationInBdAsync();
-
-                //var users = db.Users.ToList();
-                //foreach (User u in users)
-                //{
-                //    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age}");
-                //}
-
-                //var employees = db.Employees.Include(u => u.Department).Include(u => u.Post).ToList();
-                //foreach (Employee u in employees)
-                //{
-                //    Console.WriteLine($"{u.Id}.{u.Name} - {u.Age} - {u.Salary:C2} - {u.Department?.Name} - {u.Post?.Name}");
-
-                //}
-                var products = db.Products.Include(u => u.Location)
-                                                .ThenInclude(u => u!.Address)
-                                          .Include(u => u.CategoryOfProduct)
-                                          .ToList();
-
-                foreach (Product product in products)
-                {
-                    Console.WriteLine($"{product.Name} \n- {product.Characteristic} \n- {product.SalePrice} \n-{product.PurchasePrice} " +
-                        $"\n- {product.CategoryOfProduct?.Name} \n- {product.Location?.RackNumber} \n- {product.Location?.Address?.Name}");
-                }
             }
-            
+            var menu = new Menu(_appDbContext);
+            menu.OutputWarehouse();
+
         }
 
     }
-
-    //var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-    //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //{
-    //    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-    //});
-
-
-    //var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-    //var options = optionsBuilder
-    //    .UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-    //    .Options;
-
 
     //в дальнейшем допилю
     /// <summary>
