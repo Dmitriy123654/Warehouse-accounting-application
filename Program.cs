@@ -30,7 +30,7 @@ namespace WarehouseInformationSystem
                 //await TESTinsertDb.AddInformationInBdAsync();
             }
             var menu = new Menu(_appDbContext);
-            menu.OutputWarehouse();
+            await menu.MainMenuAsync();
 
         }
 

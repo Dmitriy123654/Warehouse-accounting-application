@@ -13,7 +13,7 @@
             //var insertProductDb = new InsertProductDb(db);
             //await insertProductDb.AddInformationInBdAsync();
             
-
+            
         }
         public async Task AddEmployeesInBdAsync()
         {

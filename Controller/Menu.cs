@@ -3,156 +3,69 @@
     public class Menu
     {
         private readonly ApplicationDbContext? db;
+        private static MenuOutputOfCompanyInformation? MenuOutputOfCompanyInformation;
+        private static MenuWorkWithInformation? MenuWorkWithInformation;
         public Menu(ApplicationDbContext? _db)
         {
             db = _db;
-
+            MenuOutputOfCompanyInformation = new MenuOutputOfCompanyInformation(db);
+            MenuWorkWithInformation = new MenuWorkWithInformation(db);
         }
+
+
         public async Task MainMenuAsync()
         {
-            Console.WriteLine("Что вы хотите сделать?" +
-                "\n 1. Вывести информацию о компании" +
-                "\n 2. Работа с информацией" +
-                "\n 3. ++");
-            int k = Console.Read();
-            switch (k)
+            while (true)
             {
-                case 1:
-                    Console.WriteLine("Что вы хотите сделать?" +
-                        "\n 1. Вывести информацию об отделах компании (все отделы+их сотрудники)" +
-                        "\n 2. Вывести информацию о сотрудниках компании (все сотрудники,+- отдел)" +
-                        "\n 3. Вывести информацию о складах компании и их товарах (#склада+товары на складе)");
-                    int k1 = Console.Read();
-
-                    switch (k1)
-                    {
-                        case 1:
-                            OutputDepartments();
-                            break;
-                        case 2:
-                            OutputEmployees();
-                            break;
-
-                        case 3:
-
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-
-                case 2:
-
-                    Console.WriteLine("Что вы хотите сделать?" +
-                        "\n 1. Работа с сотрудниками(добавление,изменение,увольнение)" +
-                        "\n 2. Работа с товарами(добавление,изменение,удаление)" +
-                        "\n -----------------------------------------------" +
-                        "\n 3. Работа с отделами(добавление,изменение)" +
-                        "\n 4. Работа с должностями(добавление,изменение,удаление)" +
-                        "\n 5. Работа со складами(адресами)(добавление,изменение,удаление)" +
-                        "\n 6. Работа с категориями товаров(добавление,изменение,удаление)" +
-                        "\n 7. Работа с расположением товара(добавление,изменение)");
-                    int k2 = Console.Read();
-                    switch (k2)
-                    {
-                        case 1:
-
-                            break;
-                        case 2:
-
-                            break;
-
-                        case 3:
-
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-
-                case 3:
-
-                    break;
-
-                default:
-                    break;
-            }
-        }
-        public void OutputDepartments()
-        {
-            var departments = db!.Departments.Include(u => u.Employees)
-                                             .ThenInclude(u => u.Post)
-                                             .OrderBy(u=>u.Name)
-                                             .ToList();
-            foreach (Department? department in departments)
-            {
-                int number = 1;
-                Console.WriteLine($"\t\t{department.Name}");
-                if (department.Employees.Count != 0)
+                Console.WriteLine("Что вы хотите сделать?" +
+                    "\n 1. Вывести информацию о компании" +
+                    "\n 2. Работа с информацией" +
+                    "\n 3.Завершить работу программы");
+                int k = CheckIncomingKey(3);
+                switch (k)
                 {
-                    foreach (Employee employee in department.Employees)
-                    {
-                        Console.WriteLine($"{number++}. {employee.Name} {employee.SecondName}\n" +
-                            $"   Должность: {employee?.Post?.Name}\n   Зарплата: {employee?.Salary}\n");
-                    }
+                    case 1:
+                        MenuOutputOfCompanyInformation?.Menu1();
+                        Console.Clear();
+                        break;
+                    case 2:
+                        await MenuWorkWithInformation.Menu2Async();
+                        Console.Clear();
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        Console.WriteLine("default");
+                        break;
                 }
-                else Console.WriteLine(" Сотрудники отсутствуют.\n");
+                if (k == 3) break;
             }
         }
-        public void OutputEmployees()
+
+
+        /// <summary>
+        /// Ввод и проверка введенного ключа
+        /// </summary>
+        /// <param name="count">Максимальный диапазон</param>
+        /// <returns>Ключ</returns>
+        public static int CheckIncomingKey(int? count)
         {
-            var employees = db!.Employees.Include(u => u.Department)
-                                         .Include(u => u.Post)
-                                         .OrderByDescending(u => u.DepartmentId).ThenByDescending(u=>u.Salary)
-                                         .ToList();
-            int number = 1;
-            Console.WriteLine("Список сотрудников компании:");
-            foreach (Employee? employee in employees)
+            while (true)
             {
-                Console.WriteLine($"{number++}. {employee.Name} {employee.SecondName}\n" +
-                            $"   Отдел: {employee?.Department?.Name}\n" +
-                            $"   Должность: {employee?.Post?.Name}\n" +
-                            $"   Зарплата: {employee?.Salary}\n" +
-                            $"   Телефон: {employee?.Phone}\n\n");
-            }
-        }
-        public void OutputWarehouse()
-        {
-            var addresses = db!.Addresses.Include(u => u.Locations)
-                                         .ToList();
-            var products = db!.Products.Include(u => u.CategoryOfProduct)
-                                       .OrderBy(u=>u.Location.AddressId)
-                                       .ThenBy(u=>u.CategoryOfProductId)
-                                       .ThenBy(u=>u.Name)
-                                       .ToList();
-            foreach(var address in addresses)
-            {
-                Console.WriteLine($"{address.Name}\n");
-                string? Category = products.First(u => address.Id == u.Location.AddressId).CategoryOfProduct.Name;
-                Console.WriteLine(Category);
-                foreach(Product product in products!.Where(u=>address.Id==u.Location.AddressId))
+                Console.Write("Введите номер: ");
+                //key = Convert.ToInt32();
+                int number1 = 0;
+                bool canConvert = int.TryParse(Console.ReadLine(), out number1);
+
+                if ( canConvert == true && (number1 >= 1 && number1 <= count))
                 {
-                    if (product?.CategoryOfProduct?.Name == Category)
-                    {
-                        Console.WriteLine($"{product.Name}  - {product?.Location?.RackNumber}\n");
-                        
-                    }
-                    else
-                    {
-                        
-                        Category = product?.CategoryOfProduct?.Name;
-                        Console.WriteLine(Category);
-                        Console.WriteLine($"{product.Name}  - {product?.Location?.RackNumber}\n");
-                    }
-                    
+                    Console.WriteLine();
+                    return number1;
                 }
-                //for(int i = 0; i < products.Where(u => address.Id == u.Location.AddressId).Count; i++)
-                //{
-                //    Product product = products[i];
-                //}
+                else
+                    Console.WriteLine("Вы ввели несуществующий номер,попробуйте ещё раз.");
                 
             }
         }
-
     }
 }

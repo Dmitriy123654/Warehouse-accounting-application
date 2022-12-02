@@ -18,7 +18,7 @@
        
         public override string ToString()
         {
-            return $"Отдел: {Name}\n";
+            return $"{Name}\n";
         }
     }
 }
