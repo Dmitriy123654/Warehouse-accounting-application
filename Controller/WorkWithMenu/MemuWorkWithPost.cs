@@ -1,4 +1,4 @@
-﻿namespace WarehouseInformationSystem.Controller
+﻿namespace WarehouseInformationSystem.Controller.WorkWithMenu
 {
     public class MenuWorkWithPost
     {

@@ -25,7 +25,7 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<User>().HasCheckConstraint("Age", "Age > 0 AND Age < 120"); //проверка перед созданием
-            //modelBuilder.Entity<User>().HasIndex(u => u.Age).IsUnique();//уникальность
+            modelBuilder.Entity<Location>().HasIndex(u => new { u.RackNumber, u.ShelfNumber, u.AddressId }).IsUnique();//уникальность
             modelBuilder.Entity<Employee>().Property(p => p.Salary)
                 .HasPrecision(20, 2);
             modelBuilder.Entity<Product>().Property(p => p.SalePrice)

@@ -1,4 +1,5 @@
-﻿namespace WarehouseInformationSystem.Controller
+﻿
+namespace WarehouseInformationSystem.Controller
 {
     public class MenuWorkWithInformation
     {
@@ -6,6 +7,7 @@
         //private static Output? Output;
         private static MenuWorkWithEmployee? MenuWorkWithEmployee;
         private static MenuWorkWithDepartment? MenuWorkWithDepartment;
+        private static MenuWorkWithProduct? MenuWorkWithProduct;
         private static MenuWorkWithPost? MenuWorkWithPost;
         public MenuWorkWithInformation(ApplicationDbContext? _db)
         {
@@ -13,6 +15,7 @@
             //Output = new Output(db);
             MenuWorkWithEmployee = new MenuWorkWithEmployee(db);
             MenuWorkWithDepartment = new MenuWorkWithDepartment(db);
+            MenuWorkWithProduct = new MenuWorkWithProduct(db);
             MenuWorkWithPost = new MenuWorkWithPost(db);
         }
         public async Task Menu2Async()
@@ -37,14 +40,16 @@
                         Console.Clear();
                         break;
                     case 2:
-                        
+                        await MenuWorkWithProduct.MenuOfProducts();
+                        Console.Clear();
                         break;
                     case 3:
-                        await MenuWorkWithDepartment?.MenuOfDepartments();
+                        await MenuWorkWithPost.MenuOfPosts();
                         Console.Clear();
                         break;
                     case 4:
-                        await MenuWorkWithPost.MenuOfPosts();
+                        await MenuWorkWithDepartment?.MenuOfDepartments();
+                        Console.Clear();
                         break;
                     case 5:
 
@@ -66,6 +71,6 @@
             }
         }
 
-        
+
     }
 }

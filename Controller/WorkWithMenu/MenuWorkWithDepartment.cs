@@ -1,4 +1,4 @@
-﻿namespace WarehouseInformationSystem.Controller
+﻿namespace WarehouseInformationSystem.Controller.WorkWithMenu
 {
     public class MenuWorkWithDepartment
     {
@@ -59,7 +59,7 @@
         }
         public async Task AlterDepartmentAsync()
         {
-            var departments = db?.Departments.ToList();
+            var departments = db?.Departments.OrderBy(u => u.Name).ToList();
 
             Console.WriteLine("\nВыберите номер отдела\nОтделы: ");
             OutputDepartments();
@@ -71,7 +71,7 @@
                 {
                     Console.WriteLine("Введите название: ");
                     string? name = Console.ReadLine();
-                    departments[i].Name= name;
+                    departments[i].Name = name;
                     break;
                 }
             }
@@ -80,7 +80,7 @@
         }
         public async Task DeleteDepartmentAsync()
         {
-            var departments = db?.Departments.ToList();
+            var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             Console.WriteLine("\n Выберите номер отдела который хотите удалить\n");
             //OutputDepartments();
             Department? department = MenuWorkWithEmployee.ChoiceDepartment(departments);
@@ -95,11 +95,11 @@
         //    //var departments = db?.Departments.ToList();
         public void OutputDepartments()
         {
-            var departments = db?.Departments.ToList();
+            var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             for (int i = 0; i < departments?.Count; i++)
             {
                 Department department = departments[i];
-                Console.WriteLine($"{i + 1}. {department.ToString()}");
+                Console.WriteLine($"{i + 1}. {department.Name}");
             }
             Console.WriteLine();
         }

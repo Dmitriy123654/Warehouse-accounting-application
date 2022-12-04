@@ -11,7 +11,7 @@
         public string Name { get; set; }
         [Required(ErrorMessage = "Не указаны характеристики/описание")]
         [StringLength(300, MinimumLength = 2, ErrorMessage = "Недопустимая длина имени")]
-        public string Characteristic { get; set; }
+        public string Characteristic { get; set; } 
         [Required(ErrorMessage = "Не указана цена")]
         public decimal SalePrice { get; set; }// цена продажи
         public decimal? PurchasePrice { get; set; }//закупочная

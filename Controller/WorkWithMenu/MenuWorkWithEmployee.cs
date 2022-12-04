@@ -1,13 +1,15 @@
-﻿namespace WarehouseInformationSystem.Controller
+﻿namespace WarehouseInformationSystem.Controller.WorkWithMenu
 {
     public class MenuWorkWithEmployee
     {
         private readonly ApplicationDbContext? db;
         private static Output? Output;
+        private static RecieveBdInformation? RecieveBdInformation;
         public MenuWorkWithEmployee(ApplicationDbContext? _db)
         {
             db = _db;
             Output = new Output(db);
+            RecieveBdInformation = new RecieveBdInformation(db);
         }
         public async Task MenuOfEmployees()
         {
@@ -24,15 +26,18 @@
                 {
                     case 1:
                         await AddEmployeeAsync(); //добавление
+                        Console.Clear();
                         break;
                     case 2:
                         await AlterEmployeeAsync(); //изменение
+                        Console.Clear();
                         break;
                     case 3:
                         await DeleteEmployeeAsync();    //удаление
+                        Console.Clear();
                         break;
                     case 4:
-                        Output.OutputEmployees();
+                        Output?.OutputEmployees();
                         break;
                     case 5:
                         break;
@@ -47,8 +52,8 @@
         public async Task AddEmployeeAsync()
         {
             //List<Employee>? employees = RecieveEmployees();
-            var posts = db?.Posts.ToList();
-            var departments = db?.Departments.ToList();
+            var posts = db?.Posts.OrderBy(u => u.Name).ToList();
+            var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             Console.WriteLine("   Добавление нового сотрудника");
             Console.WriteLine("Введите имя: ");
             string? name = Console.ReadLine();
@@ -77,9 +82,9 @@
         }
         public async Task AlterEmployeeAsync()
         {
-            var posts = db?.Posts.ToList();
-            var departments = db?.Departments.ToList();
-            List<Employee>? employees = Output.RecieveEmployees();
+            var posts = db?.Posts.OrderBy(u => u.Name).ToList();
+            var departments = db?.Departments.OrderBy(u => u.Name).ToList();
+            List<Employee>? employees = RecieveBdInformation?.RecieveEmployees();
             Console.WriteLine("\n Выберите номер сотрудника которого хотите изменить\n");
             Output.OutputEmployees();
             Console.WriteLine(" Выберите номер сотрудника которого хотите изменить");
@@ -141,7 +146,7 @@
         }
         public async Task DeleteEmployeeAsync()
         {
-            List<Employee>? employees = Output.RecieveEmployees();
+            List<Employee>? employees = RecieveBdInformation?.RecieveEmployees();
             Console.WriteLine("\n Выберите номер сотрудника которого хотите удалить\n");
             Output.OutputEmployees();
             Employee? employee1 = ChoiceEmployee(employees);
