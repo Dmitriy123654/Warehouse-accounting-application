@@ -9,7 +9,7 @@
             db = _db;
             
         }
-        public List<Employee>? RecieveEmployees()
+        public List<Employee> RecieveEmployees()
         {
             var employees = db!.Employees.Include(u => u.Department)
                                          .Include(u => u.Post)
@@ -20,7 +20,7 @@
                                          .ToList();
             return employees;
         }
-        public List<Product>? RecieveProducts()
+        public List<Product> RecieveProducts()
         {
             var products = db!.Products.Include(u => u.CategoryOfProduct)
                                        .Include(u => u.Location)

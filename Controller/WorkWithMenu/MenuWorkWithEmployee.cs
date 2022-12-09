@@ -56,7 +56,7 @@
             var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             Console.WriteLine("   Добавление нового сотрудника");
             Console.WriteLine("Введите имя: ");
-            string? name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
             Console.WriteLine("Введите фамилию: ");
             string? secondName = Console.ReadLine();
             Console.WriteLine("Введите возраст: ");
@@ -86,7 +86,7 @@
             var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             List<Employee>? employees = RecieveBdInformation?.RecieveEmployees();
             Console.WriteLine("\n Выберите номер сотрудника которого хотите изменить\n");
-            Output.OutputEmployees();
+            Output!.OutputEmployees();
             Console.WriteLine(" Выберите номер сотрудника которого хотите изменить");
 
 
@@ -101,7 +101,7 @@
                 {
                     case 1:
                         Console.Write("Введите имя: ");
-                        employee1!.Name = Console.ReadLine();
+                        employee1!.Name = Console.ReadLine() ?? "";
                         break;
                     case 2:
                         Console.Write("Введите фамилию: ");
@@ -128,7 +128,7 @@
                         employee1!.Phone = Console.ReadLine();
                         break;
                     case 8:
-                        Console.WriteLine($"\n{employee1.Name} {employee1.SecondName} - {employee1.Age}\n" +
+                        Console.WriteLine($"\n{employee1?.Name} {employee1?.SecondName} - {employee1?.Age}\n" +
                            $"   Отдел: {employee1?.Department?.Name}\n" +
                            $"   Должность: {employee1?.Post?.Name}\n" +
                            $"   Зарплата: {employee1?.Salary}\n" +
@@ -148,10 +148,11 @@
         {
             List<Employee>? employees = RecieveBdInformation?.RecieveEmployees();
             Console.WriteLine("\n Выберите номер сотрудника которого хотите удалить\n");
-            Output.OutputEmployees();
+            Output!.OutputEmployees();
             Employee? employee1 = ChoiceEmployee(employees);
-            db.Remove(employee1);
-            await db.SaveChangesAsync();
+            if(employee1 != null)
+                db?.Remove(employee1);
+            await db!.SaveChangesAsync();
 
         }
 
@@ -215,7 +216,7 @@
         /// </summary>
         /// <param name="employees">Список сотрудников</param>
         /// <returns>Сотрудник</returns>
-        public static Employee? ChoiceEmployee(List<Employee> employees)
+        public static Employee? ChoiceEmployee(List<Employee>? employees)
         {
             int? key = Menu.CheckIncomingKey(employees?.Count);
             Employee? employee1 = null;

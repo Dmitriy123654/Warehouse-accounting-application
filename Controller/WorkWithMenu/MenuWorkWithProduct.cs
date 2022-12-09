@@ -19,9 +19,10 @@
                    "\n 1. Добавить товар" +
                    "\n 2. Изменить товар" +
                    "\n 3. Удалить товар" +
-                   "\n 4. Просмотреть список товаров" +
-                   "\n 5.Выход");
-                int k3 = Menu.CheckIncomingKey(5);
+                   "\n 4. Посмотреть характеристики товара" +
+                   "\n 5. Просмотреть список товаров" +
+                   "\n 6.Выход");
+                int k3 = Menu.CheckIncomingKey(6);
                 switch (k3)
                 {
                     case 1:
@@ -37,39 +38,35 @@
                         Console.Clear();
                         break;
                     case 4:
-                        Output?.OutputWarehouse();
+                        await OutputCharacteristic();
                         break;
                     case 5:
+                        Output?.OutputWarehouse();
                         break;
+                    case 6:
+                        break; ;
                     default:
                         Console.WriteLine("default");
                         break;
                 }
-                if (k3 == 5)
+                if (k3 == 6)
                     break;
             }
         }
         public async Task AddProductAsync()
         {
-            //List<Employee>? employees = RecieveEmployees();
-            //var posts = db?.Posts.OrderBy(u => u.Name).ToList();
-            //var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             var categoryOfProducts = db?.CategoryOfProducts.OrderBy(u => u.Name).ToList();
             var addresses = db?.Addresses.ToList();
             Console.WriteLine("   Добавление нового товара");
             Console.WriteLine("Введите название: ");
-            string? name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
             Console.WriteLine("Введите цену продажи: ");
             decimal salePrice = Convert.ToDecimal(Console.ReadLine());
             Console.WriteLine("Введите цену закупки: ");
             decimal? purchasePrice = Convert.ToDecimal(Console.ReadLine());
             Console.WriteLine("Введите характеристики: ");
-            string? characteristic = Console.ReadLine();
-            
-            //выберите склад +
-            //введите расположение на складе
-            //var address2 = new Address("Дзержинского 95, Минск");
-            //var sklad1_12_3 = new Location(12, 3) { Address = address1 };
+            string characteristic = Console.ReadLine() ?? "";  
+
             CategoryOfProduct? categoryOfProduct = ChoiceCategoryOfProduct(categoryOfProducts);
             Address? warehouse = ChoiceWarehouse(addresses);
 
@@ -93,23 +90,24 @@
         public async Task AlterProductAsync()
         {
             var addresses = db?.Addresses.ToList();
-            List<Product>? products = RecieveBdInformation?.RecieveProducts();
+            var categoryOfProducts = db?.CategoryOfProducts.OrderBy(u => u.Name).ToList();
+            List<Product> products = RecieveBdInformation!.RecieveProducts();
             Console.WriteLine("\n Выберите номер товара который хотите изменить\n");
-            Output.OutputProducts();
+            Output?.OutputProducts();
             Console.WriteLine(" Выберите номер товара который хотите изменить");
 
             Product? product1 = ChoiceProduct(products);
             while (true)
             {
                 Console.WriteLine("Что вы хотите изменить?" +
-                            "\n 1. Название\n 2. Цену продажи\n 3. Цену закупки\n 4. Характеристики\n 5. Номер стеллажа\n 6. Номер полки\n 7. Склад\n 8. Посмотреть результат\n 9.Выйти назад");
+                            "\n 1. Название\n 2. Цену продажи\n 3. Цену закупки\n 4. Характеристики\n 5. Категория товара\n 6. Номер стеллажа\n 7. Номер полки\n 8. Склад\n 9. Посмотреть результат\n10.Выйти назад");
 
-                int? key = Menu.CheckIncomingKey(9);
+                int? key = Menu.CheckIncomingKey(10);
                 switch (key)
                 {
                     case 1:
                         Console.Write("Введите имя: ");
-                        product1!.Name = Console.ReadLine();
+                        product1!.Name = Console.ReadLine() ?? "";
                         break;
                     case 2:
                         Console.Write("Введите цену продажи: ");
@@ -121,50 +119,67 @@
                         break;
                     case 4:
                         Console.Write("Введите характеристики: ");
-                        product1!.Characteristic = Console.ReadLine();
-                        //Department? department = ChoiceCategoryOfProduct(departments);
-                        //employee1!.Department = department;
+                        product1!.Characteristic = Console.ReadLine() ?? "";
                         break;
                     case 5:
-                        Console.Write("Введите номер стеллажа: ");
-                        product1.Location.RackNumber = Convert.ToInt32(Console.ReadLine());
+                        CategoryOfProduct? categoryOfProduct = ChoiceCategoryOfProduct(categoryOfProducts);
+                        product1!.CategoryOfProduct = categoryOfProduct;
                         break;
                     case 6:
-                        Console.Write("Введите номер полки: ");
-                        product1.Location.ShelfNumber = Convert.ToInt32(Console.ReadLine());
+                        Console.Write("Введите номер стеллажа: ");
+                        product1!.Location!.RackNumber = Convert.ToInt32(Console.ReadLine());
                         break;
                     case 7:
-                        Address address = ChoiceWarehouse(addresses);
-                        product1!.Location.Address = address;
+                        Console.Write("Введите номер полки: ");
+                        product1!.Location!.ShelfNumber = Convert.ToInt32(Console.ReadLine());
                         break;
                     case 8:
-                        Console.WriteLine($"{product1?.Name} - {product1?.CategoryOfProduct.Name}" +
-                            $"\n Адрес склада: {product1?.Location.Address.Name}" +
+                        Address? address = ChoiceWarehouse(addresses);
+                        product1!.Location!.Address = address;
+                        break;
+                    case 9:
+                        Console.WriteLine($"{product1?.Name} - {product1?.CategoryOfProduct?.Name}" +
+                            $"\n Адрес склада: {product1?.Location?.Address?.Name}" +
                             $"\n Стеллаж|полка: {product1?.Location?.RackNumber}|{product1?.Location?.ShelfNumber} " +
                             $"\n Цена продажи|закупки: {product1?.SalePrice}|{product1?.PurchasePrice} " +
                             $"\n Характеристики: {product1?.Characteristic} \n");
                         break;
-                    case 9:
+                    case 10:
                         break;
                     default:
                         Console.WriteLine("default");
                         break;
                 }
                 await db!.SaveChangesAsync();
-                if (key == 9) break;
+                if (key == 10) break;
             }
         }
         public async Task DeleteProductAsync()
         {
-            List<Product>? products = RecieveBdInformation?.RecieveProducts();
+            List<Product> products = RecieveBdInformation!.RecieveProducts();
             Console.WriteLine("\n Выберите номер товара который хотите удалить\n");
-            Output.OutputProducts();
+            Output!.OutputProducts();
             Product? product = ChoiceProduct(products);
-            db.Remove(product);
-            await db.SaveChangesAsync();
+            if(product != null)
+                db?.Remove(product);
+            Console.WriteLine("Товар удален.");
+            await db!.SaveChangesAsync();
 
         }
+        public async Task OutputCharacteristic()
+        {
+            List<Product> products = RecieveBdInformation!.RecieveProducts();
+            Console.WriteLine("\n Выберите номер товара, характеристики которого хотите просмотреть\n");
+            Output!.OutputProducts();
+            Product? product1 = ChoiceProduct(products);
+            Console.WriteLine($"{product1?.Name} - {product1?.CategoryOfProduct?.Name}" +
+                            $"\n Адрес склада: {product1?.Location?.Address?.Name}" +
+                            $"\n Стеллаж|полка: {product1?.Location?.RackNumber}|{product1?.Location?.ShelfNumber} " +
+                            $"\n Цена продажи|закупки: {product1?.SalePrice}|{product1?.PurchasePrice} " +
+                            $"\n Характеристики: {product1?.Characteristic} \n");
+            await db!.SaveChangesAsync();
 
+        }
         //-----------
         //ДОБАВИТЬ ПРОВЕРКИ!!!!!!!!!!!!!!!!
 

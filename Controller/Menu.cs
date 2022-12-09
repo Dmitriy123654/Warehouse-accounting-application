@@ -29,7 +29,7 @@
                         Console.Clear();
                         break;
                     case 2:
-                        await MenuWorkWithInformation.Menu2Async();
+                        await MenuWorkWithInformation!.Menu2Async();
                         Console.Clear();
                         break;
                     case 3:

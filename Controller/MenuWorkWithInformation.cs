@@ -4,19 +4,23 @@ namespace WarehouseInformationSystem.Controller
     public class MenuWorkWithInformation
     {
         private readonly ApplicationDbContext? db;
-        //private static Output? Output;
         private static MenuWorkWithEmployee? MenuWorkWithEmployee;
         private static MenuWorkWithDepartment? MenuWorkWithDepartment;
         private static MenuWorkWithProduct? MenuWorkWithProduct;
         private static MenuWorkWithPost? MenuWorkWithPost;
+        private static MenuWokrWithAddress? MenuWokrWithAddress;
+        private static MenuWorkWithCategoryOfProduct? MenuWorkWithCategoryOfProduct;
         public MenuWorkWithInformation(ApplicationDbContext? _db)
         {
             db = _db;
-            //Output = new Output(db);
             MenuWorkWithEmployee = new MenuWorkWithEmployee(db);
             MenuWorkWithDepartment = new MenuWorkWithDepartment(db);
-            MenuWorkWithProduct = new MenuWorkWithProduct(db);
             MenuWorkWithPost = new MenuWorkWithPost(db);
+
+            MenuWorkWithProduct = new MenuWorkWithProduct(db);
+            MenuWokrWithAddress = new MenuWokrWithAddress(db);
+            MenuWorkWithCategoryOfProduct = new MenuWorkWithCategoryOfProduct(db);
+
         }
         public async Task Menu2Async()
         {
@@ -30,43 +34,39 @@ namespace WarehouseInformationSystem.Controller
                     "\n 4. Работа с должностями(добавление,изменение,удаление)" +
                     "\n 5. Работа со складами(адресами)(добавление,изменение,удаление)" +
                     "\n 6. Работа с категориями товаров(добавление,изменение,удаление)" +
-                    "\n 7. Работа с расположением товара(добавление,изменение)" +
-                    "\n 8.Выход");
-                int k2 = Menu.CheckIncomingKey(8);
+                    "\n 7.Выход");
+                int k2 = Menu.CheckIncomingKey(7);
                 switch (k2)
                 {
                     case 1:
-                        await MenuWorkWithEmployee?.MenuOfEmployees();
+                        await MenuWorkWithEmployee!.MenuOfEmployees();
                         Console.Clear();
                         break;
                     case 2:
-                        await MenuWorkWithProduct.MenuOfProducts();
+                        await MenuWorkWithProduct!.MenuOfProducts();
                         Console.Clear();
                         break;
                     case 3:
-                        await MenuWorkWithPost.MenuOfPosts();
+                        await MenuWorkWithDepartment!.MenuOfDepartments();
                         Console.Clear();
                         break;
                     case 4:
-                        await MenuWorkWithDepartment?.MenuOfDepartments();
+                        await MenuWorkWithPost!.MenuOfPosts();
                         Console.Clear();
                         break;
                     case 5:
-
+                        await MenuWokrWithAddress!.MenuOfAddresses();
                         break;
                     case 6:
-
+                        await MenuWorkWithCategoryOfProduct!.MenuCategoryOfProducts();
                         break;
                     case 7:
-
-                        break;
-                    case 8:
                         break;
                     default:
                         Console.WriteLine("default");
                         break;
                 }
-                if (k2 == 8)
+                if (k2 == 7)
                     break;
             }
         }

@@ -48,9 +48,9 @@
         {
             Console.WriteLine("   Добавление новой должности");
             Console.WriteLine("Введите название: ");
-            string? name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
 
-            Post? post = new Post(name);
+            Post? post = new (name);
             await db!.Posts.AddAsync(post);
             Console.WriteLine("Должность добавлена.\n");
             await db.SaveChangesAsync();
@@ -69,7 +69,7 @@
                 if (key == i + 1)
                 {
                     Console.WriteLine("Введите название: ");
-                    string? name = Console.ReadLine();
+                    string name = Console.ReadLine() ?? "";
                     posts[i].Name = name;
                     break;
                 }
@@ -83,9 +83,10 @@
             Console.WriteLine("\n Выберите номер должности которую хотите удалить\n");
             OutputPosts();
             Post? post = MenuWorkWithEmployee.ChoicePost(posts);
-            db.Remove(post);
+            if(post != null)
+                db?.Remove(post);
             Console.WriteLine("Должность удалена.\n");
-            await db.SaveChangesAsync();
+            await db!.SaveChangesAsync();
 
         }
         public void OutputPosts()

@@ -22,7 +22,7 @@ namespace WarehouseInformationSystem.Model
         //[Phone]
         [Range(10, 20, ErrorMessage = "Недопустимый номер телефона")]
         public string? Phone { get; set; } = "";
-        public User(string name, int age,string secondName="",string phone="") : base(name)
+        public User(string name, int age,string? secondName="",string? phone="") : base(name)
         {
             Age = age;
             SecondName = secondName;

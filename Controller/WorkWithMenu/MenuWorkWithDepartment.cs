@@ -49,9 +49,9 @@
         {
             Console.WriteLine("   Добавление нового отдела");
             Console.WriteLine("Введите название: ");
-            string? name = Console.ReadLine();
+            string name = Console.ReadLine() ?? "";
 
-            Department? department = new Department(name);
+            Department? department = new (name);
             await db!.Departments.AddAsync(department);
             Console.WriteLine("Отдел добавлен.\n");
             await db.SaveChangesAsync();
@@ -70,7 +70,7 @@
                 if (key == i + 1)
                 {
                     Console.WriteLine("Введите название: ");
-                    string? name = Console.ReadLine();
+                    string name = Console.ReadLine() ?? "";
                     departments[i].Name = name;
                     break;
                 }
@@ -84,9 +84,10 @@
             Console.WriteLine("\n Выберите номер отдела который хотите удалить\n");
             //OutputDepartments();
             Department? department = MenuWorkWithEmployee.ChoiceDepartment(departments);
-            db.Remove(department);
+            if(department != null)
+                db!.Remove(department);
             Console.WriteLine("Отдел удалён.");
-            await db.SaveChangesAsync();
+            await db!.SaveChangesAsync();
 
         }
 

@@ -10,8 +10,8 @@
         }
         public async Task AddInformationInBdAsync()
         {
-            //await AddEmployeesInBdAsync();
-            //await AddProductsInBdAsync();
+            await AddEmployeesInBdAsync();
+            await AddProductsInBdAsync();
             await AddUsersInBdAsync();
             
         }
@@ -29,9 +29,9 @@
             var warehouseAuxiliarDepartment = new Department("Склад, Вспомогательный отдел");
             var otherDepartments = new Department("Вспомогательный");
 
-            //await db.Departments.AddRangeAsync(supplyDepartment, salesDepartment, technicalDepartment, accountingDepartment,
-            //    warehouseDepartment, warehouseTechnicalDepartment, warehouseWorkDepartment, warehouseAuxiliarDepartment, otherDepartments);
-            //await db.SaveChangesAsync();
+            await db!.Departments.AddRangeAsync(supplyDepartment, salesDepartment, technicalDepartment, accountingDepartment,
+                warehouseDepartment, warehouseTechnicalDepartment, warehouseWorkDepartment, warehouseAuxiliarDepartment, otherDepartments);
+            await db.SaveChangesAsync();
 
             //post
             var director = new Post("Директор Компании");
@@ -64,10 +64,10 @@
             var driver = new Post("Водитель");
 
 
-            //await db.Posts.AddRangeAsync(director, technicalDirector, mainTechnologist, chiefAccountant, accountant,
-            //    managerOfDepartment, engineerOfDepartment, specialistOfDepartment, headWarehouses, headWarehouse, shiftSupervisor1, shiftSupervisor2, shiftSupervisor3,
-            //    maintenanceSpecialist, electrician, loader, auxiliaryWorker, storekeeper, undertaker, cleaner, security, driver);
-            //await db.SaveChangesAsync();
+            await db.Posts.AddRangeAsync(director, technicalDirector, mainTechnologist, chiefAccountant, accountant,
+                managerOfDepartment, engineerOfDepartment, specialistOfDepartment, headWarehouses, headWarehouse, shiftSupervisor1, shiftSupervisor2, shiftSupervisor3,
+                maintenanceSpecialist, electrician, loader, auxiliaryWorker, storekeeper, undertaker, cleaner, security, driver);
+            await db.SaveChangesAsync();
 
 
             //employee
@@ -280,8 +280,6 @@
             var tom1 = new User("Том23", 27, "Ключев", "+375336897278");
             var vadim1 = new User("Вади23м", 21, "Жук", "+375292780912");
             var anna1 = new User("Анна2", 19, "Махнович", "");
-            // var annaTest = new User{ Name = "Аннеа", Age = 15, SecondName = "Тест", Phone = "0987654678908765435467890876543256789"};
-            //var annaTest = new User("Аннеа", 15, "Тест", "0987654678908765435467890876543256789");
             await db!.Users.AddRangeAsync(dmitriy1, tom1, vadim1, anna1);
             await db.SaveChangesAsync();
 

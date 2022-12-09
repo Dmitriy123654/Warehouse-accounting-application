@@ -13,7 +13,7 @@ namespace WarehouseInformationSystem.View
        
         public void OutputEmployees()
         {
-            List<Employee>? employees = RecieveBdInformation?.RecieveEmployees();
+            List<Employee>? employees = RecieveBdInformation!.RecieveEmployees();
             int number = 1;
             Console.WriteLine("Список сотрудников компании:");
             foreach (Employee? employee in employees)
@@ -34,15 +34,22 @@ namespace WarehouseInformationSystem.View
             foreach (var address in addresses)
             {
                 Console.WriteLine($"\tСклад {numberWarehouse++}: {address.Name}");
-                string? Category = products.First(u => address.Id == u.Location.AddressId)?.CategoryOfProduct?.Name;
-                Console.WriteLine($"\n   {Category}");
-                int numberProduct = 1;
-                OutputProductsSupportive(address, products, Category, ref numberProduct, ref allProduct);
-                numberProduct = 1;
-                Console.WriteLine();
+               try { 
+                    string? Category = products?.First(u => address.Id == u.Location?.AddressId)?.CategoryOfProduct?.Name;
+                    Console.WriteLine($"\n   {Category}");
+                    int numberProduct = 1;
+                    OutputProductsSupportive(address, products, Category, ref numberProduct, ref allProduct);
+                    numberProduct = 1;
+                    Console.WriteLine();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Склад пустой");
+                }
             }
             Console.WriteLine($"\nОбщая статистика: ");
             Console.WriteLine($"  Всего товаров на всех складах: {allProduct}\n");
+                
         }
         public void OutputProducts()
         {
@@ -52,11 +59,19 @@ namespace WarehouseInformationSystem.View
             int numberProduct = 1;
             foreach (var address in addresses)
             {
-                Console.WriteLine($"\tСклад {numberWarehouse++}: {address.Name}");
-                string? Category = products.First(u => address.Id == u.Location.AddressId)?.CategoryOfProduct?.Name;
-                Console.WriteLine($"\n   {Category}");
-                OutputProductsSupportive(address, products, Category, ref numberProduct, ref allProduct);
-                Console.WriteLine();
+                try
+                {
+                    Console.WriteLine($"\tСклад {numberWarehouse++}: {address.Name}");
+                    string? Category = products.First(u => address.Id == u.Location?.AddressId)?.CategoryOfProduct?.Name;
+                    Console.WriteLine($"\n   {Category}");
+                    OutputProductsSupportive(address, products, Category, ref numberProduct, ref allProduct);
+                    Console.WriteLine();
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Склад пустой");
+                }
+
             }
             Console.WriteLine($"\nОбщая статистика: ");
             Console.WriteLine($"  Всего товаров на всех складах: {allProduct}\n");
@@ -91,7 +106,9 @@ namespace WarehouseInformationSystem.View
                 if (product?.CategoryOfProduct?.Name == Category)
                 {
                     Console.WriteLine($"{numberProduct++}. {product?.Name} - {product?.Location?.RackNumber}|{product?.Location?.ShelfNumber} " +
-                        $"\n   Цена продажи|закупки: {product?.SalePrice}|{product?.PurchasePrice} ");
+                        $"\n   Цена продажи|закупки: {product?.SalePrice}|{product?.PurchasePrice} " 
+                        //$"\n   Характеристики: {product?.Characteristic}"
+                        );
                     ++allProduct;
 
 
