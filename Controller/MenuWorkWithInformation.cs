@@ -56,9 +56,11 @@ namespace WarehouseInformationSystem.Controller
                         break;
                     case 5:
                         await MenuWokrWithAddress!.MenuOfAddresses();
+                        Console.Clear();
                         break;
                     case 6:
                         await MenuWorkWithCategoryOfProduct!.MenuCategoryOfProducts();
+                        Console.Clear();
                         break;
                     case 7:
                         break;
@@ -70,7 +72,5 @@ namespace WarehouseInformationSystem.Controller
                     break;
             }
         }
-
-
     }
 }

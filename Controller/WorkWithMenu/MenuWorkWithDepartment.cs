@@ -82,7 +82,6 @@
         {
             var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             Console.WriteLine("\n Выберите номер отдела который хотите удалить\n");
-            //OutputDepartments();
             Department? department = MenuWorkWithEmployee.ChoiceDepartment(departments);
             if(department != null)
                 db!.Remove(department);
@@ -90,10 +89,6 @@
             await db!.SaveChangesAsync();
 
         }
-
-        //public void OutputDepartments<t>(List<t> departments)
-        //{
-        //    //var departments = db?.Departments.ToList();
         public void OutputDepartments()
         {
             var departments = db?.Departments.OrderBy(u => u.Name).ToList();

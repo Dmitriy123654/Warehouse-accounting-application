@@ -54,12 +54,10 @@
             await db!.Posts.AddAsync(post);
             Console.WriteLine("Должность добавлена.\n");
             await db.SaveChangesAsync();
-
         }
         public async Task AlterPostAsync()
         {
             var posts = db?.Posts.ToList();
-
             Console.WriteLine("Выберите номер должности\nДолжность: ");
             OutputPosts();
             int key = Menu.CheckIncomingKey(posts?.Count);
@@ -87,7 +85,6 @@
                 db?.Remove(post);
             Console.WriteLine("Должность удалена.\n");
             await db!.SaveChangesAsync();
-
         }
         public void OutputPosts()
         {

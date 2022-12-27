@@ -19,7 +19,6 @@ namespace WarehouseInformationSystem.Model
         public string? SecondName { get; set; } = "";
         [Range(18, 100, ErrorMessage = "Недопустимый возраст")]
         public int Age { get; set; }
-        //[Phone]
         [Range(10, 20, ErrorMessage = "Недопустимый номер телефона")]
         public string? Phone { get; set; } = "";
         public User(string name, int age,string? secondName="",string? phone="") : base(name)
@@ -35,7 +34,5 @@ namespace WarehouseInformationSystem.Model
                 $"Возраст: {Age}\n" +
                 $"Телефон: {Phone}\n";
         }
-
-
     }
 }

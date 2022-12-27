@@ -106,16 +106,13 @@ namespace WarehouseInformationSystem.View
                 if (product?.CategoryOfProduct?.Name == Category)
                 {
                     Console.WriteLine($"{numberProduct++}. {product?.Name} - {product?.Location?.RackNumber}|{product?.Location?.ShelfNumber} " +
-                        $"\n   Цена продажи|закупки: {product?.SalePrice}|{product?.PurchasePrice} " 
-                        //$"\n   Характеристики: {product?.Characteristic}"
-                        );
+                        $"\n   Цена продажи|закупки: {product?.SalePrice}|{product?.PurchasePrice} ");
                     ++allProduct;
 
 
                 }
                 else
                 {
-
                     Category = product?.CategoryOfProduct?.Name;
                     Console.WriteLine($"\n   {Category}");
                     Console.WriteLine($"{numberProduct++}. {product?.Name} - {product?.Location?.RackNumber}|{product?.Location?.ShelfNumber} " +

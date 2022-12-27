@@ -25,15 +25,15 @@
                 switch (k3)
                 {
                     case 1:
-                        await AddEmployeeAsync(); //добавление
+                        await AddEmployeeAsync();
                         Console.Clear();
                         break;
                     case 2:
-                        await AlterEmployeeAsync(); //изменение
+                        await AlterEmployeeAsync();
                         Console.Clear();
                         break;
                     case 3:
-                        await DeleteEmployeeAsync();    //удаление
+                        await DeleteEmployeeAsync();
                         Console.Clear();
                         break;
                     case 4:
@@ -51,7 +51,6 @@
         }
         public async Task AddEmployeeAsync()
         {
-            //List<Employee>? employees = RecieveEmployees();
             var posts = db?.Posts.OrderBy(u => u.Name).ToList();
             var departments = db?.Departments.OrderBy(u => u.Name).ToList();
             Console.WriteLine("   Добавление нового сотрудника");
@@ -88,7 +87,6 @@
             Console.WriteLine("\n Выберите номер сотрудника которого хотите изменить\n");
             Output!.OutputEmployees();
             Console.WriteLine(" Выберите номер сотрудника которого хотите изменить");
-
 
             Employee? employee1 = ChoiceEmployee(employees);
             while (true)
@@ -155,10 +153,6 @@
             await db!.SaveChangesAsync();
 
         }
-
-        //-----------
-        //ДОБАВИТЬ ПРОВЕРКИ!!!!!!!!!!!!!!!!
-
         /// <summary>
         /// Выбирает отдел из уже существующих
         /// </summary>

@@ -85,7 +85,6 @@
                 db?.Remove(categoryOfProduct);
             Console.WriteLine("Категория удалена.\n");
             await db!.SaveChangesAsync();
-
         }
         public void OutputCategoryOfProducts()
         {
@@ -97,8 +96,5 @@
             }
             Console.WriteLine();
         }
-        
-
     }
- 
 }

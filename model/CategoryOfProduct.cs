@@ -10,7 +10,6 @@
         {
             Name = name;
         }
-        //связи
         public List<Product> Products { get; set; } = new();
        
         public override string ToString()

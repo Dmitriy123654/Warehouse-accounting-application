@@ -3,11 +3,9 @@
     public class RecieveBdInformation
     {
         private readonly ApplicationDbContext? db;
-        
         public RecieveBdInformation(ApplicationDbContext? _db)
         {
             db = _db;
-            
         }
         public List<Employee> RecieveEmployees()
         {
@@ -15,7 +13,6 @@
                                          .Include(u => u.Post)
                                          .OrderBy(u => u.Name)
                                          .ThenByDescending(u => u.SecondName)
-                                         //.OrderByDescending(u => u.DepartmentId)
                                          .ThenByDescending(u => u.Salary)
                                          .ToList();
             return employees;

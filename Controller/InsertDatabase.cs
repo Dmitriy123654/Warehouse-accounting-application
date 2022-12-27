@@ -6,18 +6,15 @@
         public InsertDatabase(ApplicationDbContext? _db)
         {
             db = _db;
-            
         }
         public async Task AddInformationInBdAsync()
         {
             await AddEmployeesInBdAsync();
             await AddProductsInBdAsync();
             await AddUsersInBdAsync();
-            
         }
         public async Task AddEmployeesInBdAsync()
         {
-            //department
             var supplyDepartment = new Department("Отдел снабжения");
             var directorsDepartment = new Department("-");
             var salesDepartment = new Department("Отдел сбыта");
@@ -28,12 +25,11 @@
             var warehouseWorkDepartment = new Department("Склад, Рабочий отдел");
             var warehouseAuxiliarDepartment = new Department("Склад, Вспомогательный отдел");
             var otherDepartments = new Department("Вспомогательный");
-
             await db!.Departments.AddRangeAsync(supplyDepartment, salesDepartment, technicalDepartment, accountingDepartment,
                 warehouseDepartment, warehouseTechnicalDepartment, warehouseWorkDepartment, warehouseAuxiliarDepartment, otherDepartments);
             await db.SaveChangesAsync();
 
-            //post
+
             var director = new Post("Директор Компании");
             var technicalDirector = new Post("Технический директор");
             var mainTechnologist = new Post("Главный технолог");
@@ -62,46 +58,37 @@
             var cleaner = new Post("Уборщик");
             var security = new Post("Охранник");
             var driver = new Post("Водитель");
-
-
             await db.Posts.AddRangeAsync(director, technicalDirector, mainTechnologist, chiefAccountant, accountant,
                 managerOfDepartment, engineerOfDepartment, specialistOfDepartment, headWarehouses, headWarehouse, shiftSupervisor1, shiftSupervisor2, shiftSupervisor3,
                 maintenanceSpecialist, electrician, loader, auxiliaryWorker, storekeeper, undertaker, cleaner, security, driver);
             await db.SaveChangesAsync();
 
 
-            //employee
             var dmitriy1 = new Employee("Дмитрий", 19, "Ермак", "375334895261", 2500)
             {
                 Department = directorsDepartment,
                 Post = director
             };
-
             var tom1 = new Employee("Том", 27, "Ключев", "+375336897278", 2000)
             {
                 Department = technicalDepartment,
                 Post = technicalDirector
             };
-
-            //var tom1 = new Employee { Name = "Том", Age = 27, SecondName = "Ключев", Phone = "375336897278", Salary =2000 , Department = technicalDepartment, Post = technicalDirector};
             var vadim1 = new Employee("Вадим", 21, "Жук", "+375292780912", 1850)
             {
                 Department = supplyDepartment,
                 Post = managerOfDepartment
             };
-
             var anna1 = new Employee("Анна", 19, "Махнович", "", 1900)
             {
                 Department = accountingDepartment,
                 Post = chiefAccountant
             };
-
             var alexandra1 = new Employee("Александра", 15, "Лозюк", "+375445110212", 1900)
             {
                 Department = salesDepartment,
                 Post = managerOfDepartment
             };
-
             var anton1 = new Employee("Антон", 15, "Коллаур", "+375446589633", 1650)
             {
                 Department = warehouseDepartment,
@@ -109,20 +96,15 @@
             };
             await db!.Employees.AddRangeAsync(dmitriy1, tom1, vadim1, anna1, alexandra1, anton1);
             await db.SaveChangesAsync();
-
         }
         public async Task AddProductsInBdAsync()
         {
-
-            //addresses
             var address1 = new Address("Якуба Коласа 28, Минск");
             var address2 = new Address("Дзержинского 95, Минск");
             var address3 = new Address("Гикало 9, Минск");
             await db!.Addresses.AddRangeAsync(address1,address2,address3);
             await db.SaveChangesAsync();
 
-            //Locations
-            //sklad1
             var sklad1_12_3 = new Location(12, 3) { Address = address1};
             var sklad1_2_4 = new Location(2, 4) { Address = address1 };
             var sklad1_3_5 = new Location(3, 5) { Address = address1 };
@@ -131,13 +113,13 @@
             var sklad1_17_4 = new Location(17, 4) { Address = address1}; 
             var sklad1_11_2 = new Location(11, 2) { Address = address1 };
             await db.Locations.AddRangeAsync(sklad1_12_3, sklad1_2_4, sklad1_3_5, sklad1_3_2, sklad1_20_1, sklad1_17_4, sklad1_11_2);
-            //sklad2
+
             var sklad2_1_3 = new Location(1, 3) { Address = address2 };
             var sklad2_2_4 = new Location(2, 4) { Address = address2 };
             var sklad2_3_5 = new Location(3, 5) { Address = address2 };
             var sklad2_10_2 = new Location(10, 2) { Address = address2 };
             await db.Locations.AddRangeAsync(sklad2_1_3, sklad2_2_4, sklad2_3_5, sklad2_10_2);
-            //sklad3
+
             var sklad3_5_1 = new Location(5, 1) { Address = address3 };
             var sklad3_17_3 = new Location(17, 3) { Address = address3 };
             var sklad3_11_3 = new Location(11, 3) { Address = address3 };
@@ -145,7 +127,7 @@
             await db.Locations.AddRangeAsync(sklad3_5_1, sklad3_17_3, sklad3_11_3, sklad3_4_2);
             await db.SaveChangesAsync();
 
-            //CategoryOfProduct
+
             var mobilePhone = new CategoryOfProduct("Мобильный телефон");
             var videoCard = new CategoryOfProduct("Видео карта");
             var laptop = new CategoryOfProduct("Ноутбук");
@@ -158,7 +140,6 @@
                 powerSupply, cpu, ssd, hdd, gpu);
             await db.SaveChangesAsync();
 
-            //Product
             //sklad 1
             var XiomiRedmiNote8Pro = new Product("Xiaomi Note 8 Pro",
                 "Android, экран 6.53 IPS(1080x2340), Mediatek Helio G90T, ОЗУ 6 ГБ, флэш - память 128 ГБ, карты 64 Мп, 4500 мАч, 2 SIM, влагозащита IP52", 500, 370)
@@ -272,7 +253,6 @@
             };
             await db.Products.AddRangeAsync(SSDKingstonA400_960GB, SSDKingstonA400_1920GB, SSDSamsung870Evo_1TB, SSDSamsung870Evo_2TB);
             await db.SaveChangesAsync();
-
         }
         public async Task AddUsersInBdAsync()
         {
@@ -282,8 +262,6 @@
             var anna1 = new User("Анна2", 19, "Махнович", "");
             await db!.Users.AddRangeAsync(dmitriy1, tom1, vadim1, anna1);
             await db.SaveChangesAsync();
-
         }
-
     }
 }

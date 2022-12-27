@@ -1,8 +1,5 @@
 ﻿namespace WarehouseInformationSystem.Model
 {
-    /// <summary>
-    /// должность
-    /// </summary>
     public class Post
     {
         public int Id { get; set; }
@@ -13,7 +10,6 @@
         { 
             Name = name; 
         }
-        //связь
         public List<Employee> Employees { get; set; } = new();
         public override string ToString()
         {

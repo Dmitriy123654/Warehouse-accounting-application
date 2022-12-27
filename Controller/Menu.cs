@@ -11,14 +11,12 @@
             MenuOutputOfCompanyInformation = new MenuOutputOfCompanyInformation(db);
             MenuWorkWithInformation = new MenuWorkWithInformation(db);
         }
-
-
         public async Task MainMenuAsync()
         {
             while (true)
             {
                 Console.WriteLine("Что вы хотите сделать?" +
-                    "\n 1. Вывести информацию о компании" +
+                    "\n 1. Вывести информацию о информационной системе" +
                     "\n 2. Работа с информацией" +
                     "\n 3.Завершить работу программы");
                 int k = CheckIncomingKey(3);
@@ -41,8 +39,6 @@
                 if (k == 3) break;
             }
         }
-
-
         /// <summary>
         /// Ввод и проверка введенного ключа
         /// </summary>
@@ -53,7 +49,6 @@
             while (true)
             {
                 Console.Write("Введите номер: ");
-                //key = Convert.ToInt32();
                 int number1 = 0;
                 bool canConvert = int.TryParse(Console.ReadLine(), out number1);
 
@@ -64,7 +59,6 @@
                 }
                 else
                     Console.WriteLine("Вы ввели несуществующий номер,попробуйте ещё раз.");
-                
             }
         }
     }

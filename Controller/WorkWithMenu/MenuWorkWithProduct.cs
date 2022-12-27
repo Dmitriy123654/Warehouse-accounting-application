@@ -26,15 +26,15 @@
                 switch (k3)
                 {
                     case 1:
-                        await AddProductAsync(); //добавление
+                        await AddProductAsync(); 
                         Console.Clear();
                         break;
                     case 2:
-                        await AlterProductAsync(); //изменение
+                        await AlterProductAsync(); 
                         Console.Clear();
                         break;
                     case 3:
-                        await DeleteProductAsync();    //удаление
+                        await DeleteProductAsync(); 
                         Console.Clear();
                         break;
                     case 4:
@@ -82,10 +82,8 @@
                 CategoryOfProduct = categoryOfProduct
             };
             Console.WriteLine("Элемент добавлен");
-            //// Добавление
             await db!.Products.AddAsync(AddProduct);
             await db.SaveChangesAsync();
-
         }
         public async Task AlterProductAsync()
         {
@@ -164,7 +162,6 @@
                 db?.Remove(product);
             Console.WriteLine("Товар удален.");
             await db!.SaveChangesAsync();
-
         }
         public async Task OutputCharacteristic()
         {
@@ -178,11 +175,7 @@
                             $"\n Цена продажи|закупки: {product1?.SalePrice}|{product1?.PurchasePrice} " +
                             $"\n Характеристики: {product1?.Characteristic} \n");
             await db!.SaveChangesAsync();
-
         }
-        //-----------
-        //ДОБАВИТЬ ПРОВЕРКИ!!!!!!!!!!!!!!!!
-
         /// <summary>
         /// Выбирает категорию из уже существующих
         /// </summary>
@@ -250,7 +243,6 @@
                 {
                     product1 = products[i];
                     break;
-
                 }
             }
             return product1;

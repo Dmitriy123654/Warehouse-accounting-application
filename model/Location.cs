@@ -3,22 +3,18 @@
     public class Location
     {
         [Key]
-        public int WarehouseNumber { get; set; }//номер склада
+        public int WarehouseNumber { get; set; }
         [Required(ErrorMessage = "Не указан номер стеллажа")]
-        public int RackNumber { get; set; }//стеллаж
+        public int RackNumber { get; set; }
         [Required(ErrorMessage = "Не указан номер полки")]
-        public int ShelfNumber { get; set; }//полка
-        //???
+        public int ShelfNumber { get; set; }
         public Location(int rackNumber, int shelfNumber)
         {
             RackNumber = rackNumber;
             ShelfNumber = shelfNumber;
 
         }
-        //связи:
-        //товары
-        public List<Product> Products { get; set; } = new();//товары склада
-        //адрес
+        public List<Product> Products { get; set; } = new();
         public int AddressId { get; set; }
         public Address? Address { get; set; }
         public override string ToString()
@@ -30,12 +26,3 @@
         }
     }
 }
-//public Location(int warehouseNumber, int rackNumber, int shelfNumber,Address? address) :this(warehouseNumber,rackNumber,shelfNumber)
-//{
-//    Address = address;
-//    AddressId = address.Id;
-//}
-//public Location(int warehouseNumber, int rackNumber, int shelfNumber, int addressId) : this(warehouseNumber, rackNumber, shelfNumber)
-//{
-//    AddressId = addressId;
-//}

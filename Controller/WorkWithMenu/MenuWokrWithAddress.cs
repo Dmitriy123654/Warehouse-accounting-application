@@ -52,7 +52,6 @@
             await db!.Addresses.AddAsync(address);
             Console.WriteLine("Склад добавлен.\n");
             await db.SaveChangesAsync();
-
         }
         public async Task AlterAdressAsync()
         {
@@ -85,7 +84,6 @@
                 db?.Remove(address);
             Console.WriteLine("Склад удален.\n");
             await db!.SaveChangesAsync();
-
         }
         public void OutputAdresses()
         {
