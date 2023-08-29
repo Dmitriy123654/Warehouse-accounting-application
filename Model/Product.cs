@@ -10,8 +10,8 @@
         [StringLength(300, MinimumLength = 2, ErrorMessage = "Недопустимая длина имени")]
         public string Characteristic { get; set; } 
         [Required(ErrorMessage = "Не указана цена")]
-        public decimal SalePrice { get; set; }// цена продажи
-        public decimal? PurchasePrice { get; set; }//закупочная
+        public decimal SalePrice { get; set; }
+        public decimal? PurchasePrice { get; set; }
         public Product(string name, string characteristic, decimal salePrice, decimal? purchasePrice)
         {
             Name = name;
@@ -21,11 +21,8 @@
            
         }
 
-        //связи:
-        //категория
         public int CategoryOfProductId { get; set; }
         public CategoryOfProduct? CategoryOfProduct { get; set; }
-        //склад
         public int LocationWarehouseNumber { get; set; }
         public Location? Location { get; set; }
         public override string ToString()
@@ -35,7 +32,5 @@
                 $"Цена продажи: {SalePrice}\n" +
                 $"Цена закупки: {PurchasePrice}\n";
         }
-
-       
     }
 }
