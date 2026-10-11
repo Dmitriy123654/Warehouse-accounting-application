@@ -86,9 +86,6 @@ namespace WarehouseInformationSystem.Migrations
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("RackNumber", "ShelfNumber")
-                        .IsUnique();
-
                     b.ToTable("Locations");
                 });
 
